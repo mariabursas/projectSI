@@ -224,15 +224,6 @@ footer a:hover {
     color: white;
 }
 
-.career-modal,
-.death-modal,
-.legacy-modal,
-.early-modal {
-    display: flex;
-    flex-direction: row;
-
-}
-
 .funFactImg {
     display: flex;
     flex-wrap: wrap;
@@ -326,6 +317,15 @@ footer a:hover {
         content: inherit;
         max-height: 50%;
     }
+
+    .career-modal,
+    .death-modal,
+    .legacy-modal,
+    .early-modal {
+        display: flex;
+        flex-direction: column;
+
+    }
 }
 
 @media (min-width: 768px) {
@@ -372,5 +372,14 @@ footer a:hover {
         box-sizing: border-box;
         content: inherit;
         max-height: 90%;
+    }
+
+    .career-modal,
+    .death-modal,
+    .legacy-modal,
+    .early-modal {
+        display: flex;
+        flex-direction: row;
+
     }
 }
