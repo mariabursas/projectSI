@@ -12,7 +12,17 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
     />
-
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
     <link rel="stylesheet" href="./styles.css" />
     <link
       rel="stylesheet"
@@ -52,8 +62,11 @@
         </div>
       </div>
     </header>
-    <nav class="navbar navbar-expand-md navbar-light light-blue lighten-4 mobile sticky-nav" id="navigationMobile">
-           <button
+    <nav
+      class="navbar navbar-expand-md navbar-light light-blue lighten-4 mobile sticky-nav"
+      id="navigationMobile"
+    >
+      <button
         class="navbar-toggler toggler-example slidesDisplay"
         type="button"
         data-toggle="collapse"
@@ -63,7 +76,7 @@
         aria-label="Toggle navigation"
         id="hamburgerMenu"
       >
-        <span class="dark-blue-text"><i  class="fas fa-bars fa-1x"></i></span>
+        <span class="dark-blue-text"><i class="fas fa-bars fa-1x"></i></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent1">
@@ -81,59 +94,74 @@
             <a class="nav-link" href="#cubismTitle">Cubism Period</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link funFactsLink" href=""
-              >Fun Facts</a
+            <a class="nav-link funFactsLink" href="">Fun Facts</a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link planAnEncounter"
+              id="planAnEncounterMobile"
+              href=""
+              >Plan An Encounter</a
             >
           </li>
         </ul>
       </div>
     </nav>
-    
-<nav class="sticky-nav"><div   id="navigationDesktop" class="navbar navbar-expand-md navbar-light light-blue lighten-4 sticky-nav">
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" id="home" href="#">Home</a>
-    </li>
-    <li class="nav-item dropdown">
-      <a
-        class="nav-link dropdown-toggle slidesDisplay"
-        data-toggle="dropdown"
-        href="#"
-        role="button"
-        aria-haspopup="true"
-        id="about-picasso"
-        aria-expanded="false"
-        >About Picasso</a
+
+    <nav class="sticky-nav">
+      <div
+        id="navigationDesktop"
+        class="navbar navbar-expand-md navbar-light light-blue lighten-4 sticky-nav"
       >
-      <div class="dropdown-menu slidesDisplay">
-        <a class="dropdown-item" id="early">Early life</a>
-        <a class="dropdown-item" id="career">Career</a>
-        <a class="dropdown-item" id="death">Death</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" id="artistic-legacy" href="#"
-          >Artistic legacy</a
-        >
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active slidesDisplay" id="home" href="#">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle slidesDisplay"
+              data-toggle="dropdown"
+              href="#"
+              role="button"
+              aria-haspopup="true"
+              id="about-picasso"
+              aria-expanded="false"
+              >About Picasso</a
+            >
+            <div class="dropdown-menu slidesDisplay">
+              <a class="dropdown-item" id="early">Early life</a>
+              <a class="dropdown-item" id="career">Career</a>
+              <a class="dropdown-item" id="death">Death</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" id="artistic-legacy" href="#"
+                >Artistic legacy</a
+              >
+            </div>
+          </li>
+          <li class="nav-item d-none d-md-block slidesDisplay">
+            <a class="nav-link" href="#blueTitle">Blue Period</a>
+          </li>
+          <li class="nav-item slidesDisplay">
+            <a class="nav-link" href="#roseTitle">Rose Period</a>
+          </li>
+          <li class="nav-item slidesDisplay">
+            <a class="nav-link" href="#africanTitle">African Period</a>
+          </li>
+          <li class="nav-item slidesDisplay">
+            <a class="nav-link" href="#cubismTitle">Cubism Period</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link funFactsLink" href="">Fun Facts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link planAnEncounter" id="planAnEncounter" href=""
+              >Plan An Encounter</a
+            >
+          </li>
+        </ul>
       </div>
-    </li>
-    <li class="nav-item d-none d-md-block slidesDisplay">
-      <a class="nav-link" href="#blueTitle">Blue Period</a>
-    </li>
-    <li class="nav-item slidesDisplay">
-      <a class="nav-link" href="#roseTitle">Rose Period</a>
-    </li>
-    <li class="nav-item slidesDisplay">
-      <a class="nav-link" href="#africanTitle">African Period</a>
-    </li>
-    <li class="nav-item slidesDisplay">
-      <a class="nav-link" href="#cubismTitle">Cubism Period</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link funFactsLink"  href=""
-        >Fun Facts</a
-      >
-    </li>
-  </ul>
-</div></nav>
+    </nav>
+    <div class="visitContainer" id="visitContainer"></div>
     <div class="openModal early-modal" style="display: none">
       <img src="./resources/about.gif" class="about" alt="about" /> Picasso was
       born at 23:15 on 25 October 1881, in the city of Málaga, Andalusia, in
@@ -280,7 +308,9 @@
       </div>
     </div>
     <div id="content" class="content">
-      <div id="carousel-slide" class="carouselSlide" data-ride="carousel"></div>
+      <div class="scrollbar scrollbar-primary">
+        <div id="carousel-slide" class="carouselSlide"></div>
+      </div>
       <div class="videoContainer">
         <iframe
           width="1250"
@@ -311,7 +341,7 @@
       <div class="funFactImg">
         <img src="https://static.dw.com/image/16086093_605.jpg" />
       </div>
-      <div class="funFactTitle">15 Pablo Picasso Fun Facts</div>
+      <div class="pageTitle">15 Pablo Picasso Fun Facts</div>
       <h3>1. Picasso's Full Name Has 23 Words</h3>
       <p>
         Picasso was baptized Pablo Diego José Francisco de Paula Juan Nepomuceno
@@ -460,15 +490,13 @@
       <div class="container">
         <div class="row">
           <div class="col-md-4">
-            <h5></h5>
             <ul class="list-unstyled">
-              <li> <a  id="earlyFooter">Early life</a></li>
-              <li> <a id="careerFooter">Career</a></li>
-              <li> <a  id="deathFooter">Death</a></li>
-              <li> <a  id="artistic-legacyFooter" href="#"
-                >Artistic legacy</a</li>
-
-              
+              <li><a id="earlyFooter">Early life</a></li>
+              <li><a id="careerFooter">Career</a></li>
+              <li><a id="deathFooter">Death</a></li>
+              <li>
+                <a id="artistic-legacyFooter" href="#">Artistic legacy</a>
+              </li>
             </ul>
           </div>
           <div class="col-md-4">
@@ -517,6 +545,6 @@
       integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
       crossorigin="anonymous"
     ></script>
-    <script src="./main.js" async defer></script>
+    <script src="./main.js" type="module" async defer></script>
   </body>
 </html>

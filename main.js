@@ -1,9 +1,19 @@
+import museums, {
+  moma,
+  louvre,
+  guggenheim,
+  metropolitan,
+  nationalGallery,
+  picassoBarcelona,
+  picassoMalaga,
+} from "./museums.js";
+import { Locations } from "./Locations.js";
 let url = "https://en.wikipedia.org/";
-const carousel = document.querySelector("#carousel");
 const carouselSlide = document.querySelector("#carousel-slide");
 const dropDownPicasso = document.querySelector("#about-picasso");
 const searchForm = document.querySelector("#searchForm");
 const searchInput = document.querySelector("#searchInput");
+const planAnEncounter = document.querySelectorAll(".planAnEncounter");
 const elementsWithEarlyId = document.querySelectorAll('[id*="early"]');
 const dropDownCareer = document.querySelectorAll('[id*="career"]');
 const dropDownDeath = document.querySelectorAll('[id*="death"]');
@@ -17,7 +27,7 @@ const stickyNav = document.querySelector(".sticky-nav");
 const funFacts = document.querySelector(".funFacts");
 const funFactsLinks = document.querySelectorAll(".funFactsLink");
 const slidesDisplay = document.querySelectorAll(".slidesDisplay");
-
+const visitContainer = document.querySelector("#visitContainer");
 const content = document.querySelector("#content");
 const header = document.querySelector("header");
 const footer = document.querySelector("footer");
@@ -92,6 +102,7 @@ async function builContent() {
     element.addEventListener("click", function () {
       searchResult.innerHTML = "";
       content.style.display = "block";
+      visitContainer.style.display = "none";
     });
   });
 
@@ -101,7 +112,17 @@ async function builContent() {
 
       content.style.display = "none";
       searchResult.style.display = "none";
+      visitContainer.style.display = "none";
       funFacts.style.display = "";
+    });
+  });
+  planAnEncounter.forEach((element) => {
+    element.addEventListener("click", function (event) {
+      event.preventDefault();
+      content.style.display = "none";
+      searchResult.style.display = "none";
+      funFacts.style.display = "none";
+      getLocation();
     });
   });
 }
@@ -171,40 +192,17 @@ async function getImageSrc(title) {
 async function getCarousel(carouselList) {
   carouselList.forEach((element, index) => {
     const imageContainer = document.createElement("div");
-    imageContainer.classList.add("item");
-
+    imageContainer.classList.add("carouselItem");
     if (index === 0) {
       imageContainer.classList.add("active");
     }
-
     const image = document.createElement("img");
     image.src = element;
     image.classList.add("image");
-    imageContainer.appendChild(image);
 
+    imageContainer.appendChild(image);
     carouselSlide.appendChild(imageContainer);
   });
-  imageContainers = await document.querySelectorAll(".item");
-  totalItems = imageContainers.length;
-  currentIndex = 0;
-
-  scrollItemsToEndAndBack(800);
-}
-function scrollItemsToEndAndBack(interval) {
-  const scrollAmount = 5;
-  let scrollPosition = 0;
-  const maxScroll = carouselSlide.scrollWidth - carouselSlide.clientWidth;
-
-  const scrollInterval = setInterval(function () {
-    scrollPosition += scrollAmount;
-    carouselSlide.scrollLeft = scrollPosition;
-
-    if (scrollPosition >= maxScroll) {
-      scrollPosition = 0;
-      clearInterval(scrollInterval);
-      setTimeout(scrollItemsToEndAndBack, interval);
-    }
-  }, 800);
 }
 
 function dropDownMenu() {
@@ -330,11 +328,13 @@ async function searchAndOpenModal(searchTerm) {
   if (!searchResults || searchResults.length === 0) {
     searchResult.innerHTML = "";
     content.style.display = "none";
+    visitContainer.style.display = "none";
     await displayNoResultsCard();
     return;
   } else {
     content.style.display = "none";
     funFacts.style.display = "none";
+    visitContainer.style.display = "none";
     searchResult.innerHTML = "";
     searchResults.forEach((element) => {
       displayModal(element.title, element.url);
@@ -454,4 +454,29 @@ function openModalWithBigImage(image, element) {
   modalContainer.appendChild(modalContent);
 
   element.appendChild(modalContainer);
+}
+
+const locations = new Locations();
+
+async function getLocation() {
+  content.style.display = "none";
+  searchResult.style.display = "none";
+  funFacts.style.display = "none";
+  if (visitContainer && visitContainer.innerHTML.trim() !== "") {
+    visitContainer.style.display = "block";
+  } else {
+    visitContainer.style.display = "block";
+    const visitTitle = document.createElement("div");
+    visitTitle.innerHTML =
+      "Plan an encounter with Picasso's Art at one of the following museums";
+    visitTitle.classList.add("encounterTitle");
+    visitContainer.appendChild(visitTitle);
+    await locations.getLocations(museums.moma);
+    await locations.getLocations(museums.guggenheim);
+    await locations.getLocations(museums.metropolitan);
+    await locations.getLocations(museums.louvre);
+    await locations.getLocations(museums.picassoMalaga);
+    await locations.getLocations(museums.picassoBarcelona);
+    await locations.getLocations(museums.nationalGallery);
+  }
 }
