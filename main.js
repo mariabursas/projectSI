@@ -8,6 +8,7 @@ import museums, {
   picassoMalaga,
 } from "./museums.js";
 import { Locations } from "./Locations.js";
+import Calendar from "./Calendar.js";
 let url = "https://en.wikipedia.org/";
 const carouselSlide = document.querySelector("#carousel-slide");
 const dropDownPicasso = document.querySelector("#about-picasso");
@@ -18,6 +19,9 @@ const elementsWithEarlyId = document.querySelectorAll('[id*="early"]');
 const dropDownCareer = document.querySelectorAll('[id*="career"]');
 const dropDownDeath = document.querySelectorAll('[id*="death"]');
 const dropDownLegacy = document.querySelectorAll('[id*="artistic-legacy"]');
+const eventMenu = document.querySelectorAll('[id*="event"]');
+const calendar = document.querySelector("#calendar");
+
 const home = document.querySelector("#home");
 const searchResult = document.querySelector("#searchResult");
 const videoContainer = document.querySelector("#videoContainer");
@@ -98,18 +102,33 @@ async function builContent() {
   getSlides(cubismResp, cubism, 20731162, listCubism);
 
   dropDownMenu();
+  eventMenu.forEach((eventLink) => {
+    const calendarFunctionality = new Calendar();
+    eventLink.addEventListener("click", async function (event) {
+      content.style.display = "none";
+      event.preventDefault();
+      calendar.style.display = "block";
+      searchResult.style.display = "none";
+      visitContainer.style.display = "none";
+      funFacts.style.display = "none";
+      if (calendar.innerHTML == "") {
+        await calendarFunctionality.renderCalendar();
+      }
+    });
+  });
   slidesDisplay.forEach((element) => {
     element.addEventListener("click", function () {
       searchResult.innerHTML = "";
       content.style.display = "block";
       visitContainer.style.display = "none";
+      calendar.style.display="none"
     });
   });
 
   funFactsLinks.forEach((funFactsLink) => {
     funFactsLink.addEventListener("click", function (event) {
       event.preventDefault();
-
+      calendar.style.display = "none";
       content.style.display = "none";
       searchResult.style.display = "none";
       visitContainer.style.display = "none";
@@ -119,6 +138,7 @@ async function builContent() {
   planAnEncounter.forEach((element) => {
     element.addEventListener("click", function (event) {
       event.preventDefault();
+      calendar.style.display = "none";
       content.style.display = "none";
       searchResult.style.display = "none";
       funFacts.style.display = "none";
@@ -327,6 +347,7 @@ async function searchAndOpenModal(searchTerm) {
 
   if (!searchResults || searchResults.length === 0) {
     searchResult.innerHTML = "";
+    calendar.style.display = "none";
     content.style.display = "none";
     visitContainer.style.display = "none";
     await displayNoResultsCard();
@@ -334,6 +355,7 @@ async function searchAndOpenModal(searchTerm) {
   } else {
     content.style.display = "none";
     funFacts.style.display = "none";
+    calendar.style.display = "none";
     visitContainer.style.display = "none";
     searchResult.innerHTML = "";
     searchResults.forEach((element) => {

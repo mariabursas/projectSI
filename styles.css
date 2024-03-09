@@ -36,15 +36,10 @@ h3 {
 
 .carouselItem {
     flex-basis: 20%;
-   
+
 }
 
-.carouselItem img {
-    width: 150px;
-    height: 300px;
-    padding: 2%;
-    border-radius: 10px;
-}
+
 
 
 .scrollbar {
@@ -93,7 +88,7 @@ div.item {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 70%;
-    background-color: rgba(52, 58, 64, 0.9);
+    background-color: #a0a9c2;
     color: white;
     padding: 2%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -263,6 +258,7 @@ footer a:hover {
     max-width: 100%;
 }
 
+
 .fa-1x {
     font-size: 1.5rem;
 
@@ -325,7 +321,7 @@ footer a:hover {
         flex-direction: column;
         overflow: hidden;
         align-items: center;
-        height: 20px;
+        height: 90px;
     }
 
     .tile div {
@@ -351,7 +347,7 @@ footer a:hover {
         object-fit: cover;
         box-sizing: border-box;
         content: inherit;
-        max-height: 50%;
+        max-height: 90%;
     }
 
     .career-modal,
@@ -361,6 +357,13 @@ footer a:hover {
         display: flex;
         flex-direction: column;
 
+    }
+
+    .carouselItem img {
+        width: 50px;
+        height: 100px;
+        padding: 2%;
+        border-radius: 10px;
     }
 }
 
@@ -408,6 +411,13 @@ footer a:hover {
         box-sizing: border-box;
         content: inherit;
         max-height: 90%;
+    }
+
+    .carouselItem img {
+        width: 150px;
+        height: 300px;
+        padding: 2%;
+        border-radius: 10px;
     }
 
     .career-modal,
@@ -481,4 +491,140 @@ footer a:hover {
 
 .sectionTitle {
     color: #6e7a86;
+}
+
+.calendarContainer {
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin: 0 auto;
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 10%;
+}
+
+.monthContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+    color: #343A40;
+}
+
+.monthContainer * {
+    padding: 8%;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+}
+
+.prev:hover,
+.next:hover {
+    cursor: pointer;
+}
+
+.calendarHeader,
+.daysContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.calendarHeader div,
+.daysContainer div {
+    width: 14.28%;
+}
+
+.calendarHeader div {
+    font-weight: 700;
+}
+
+.day {
+    width: 14.28%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(206, 206, 206);
+    height: 90px;
+}
+
+.day:not(.prev-days, .next-days):hover {
+    background-color: #748392;
+    color: white;
+}
+
+.prev-days,
+.next-days {
+    color: rgb(189, 186, 186)
+}
+
+.day.active {
+    background-color: #8396c9;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.day.today {
+    font-size: 2rem;
+}
+
+.day.added {
+    position: relative;
+}
+
+.day.added::after {
+    content: '';
+    position: absolute;
+    background-color: #8396c9;
+    bottom: 10%;
+    left: 15%;
+    width: 75%;
+    height: 6px;
+    border-radius: 30px;
+}
+
+.eventModal {
+    z-index: 1100;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    background-color: #a0a9c2;
+    color: white;
+    padding: 2%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    max-height: 95%;
+    overflow-y: auto;
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.eventModal img {
+    width: 50%;
+
+    flex-basis: 50%;
+}
+
+.eventDescription {
+    padding-left: 3%;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 45%;
+    justify-content: space-around;
+}
+
+.eventTitle {
+    font-size: 27px;
 }
