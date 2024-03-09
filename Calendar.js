@@ -138,11 +138,15 @@ export default class Calendar {
           const title = document.createElement("div");
           title.classList.add("eventTitle");
           title.innerHTML = event.name;
+          const eventDate = document.createElement("div");
+          eventDate.classList.add("eventDate");
+          eventDate.innerHTML = "Date: " + event.date;
           const eventDetails = document.createElement("div");
           eventDetails.innerHTML = event.details;
           const location = document.createElement("div");
           location.innerHTML = "Location: " + event.location;
           eventDescription.appendChild(title);
+          eventDescription.appendChild(eventDate);
           eventDescription.appendChild(eventDetails);
           eventDescription.appendChild(location);
           eventContainer.appendChild(eventDescription);

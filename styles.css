@@ -628,3 +628,6 @@ footer a:hover {
 .eventTitle {
     font-size: 27px;
 }
+.eventDate{
+    color: #343A40;
+}
